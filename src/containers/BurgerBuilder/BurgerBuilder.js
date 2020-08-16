@@ -13,7 +13,6 @@ class BurgerBuilder extends Component {
     // constructor(props){
     //     super(props);
     //     this.state = {
-
     //     }
     // }
     state = {
@@ -23,9 +22,19 @@ class BurgerBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        totalPrice: 4
+        totalPrice: 4,
+        purchasable: false
     }
 
+    updatePurchaseState = ingredients => {        
+        const sum = Object.keys(ingredients)
+            .map(key => ingredients[key])
+            .reduce((sum, el) => sum + el, 0);
+        
+            this.setState({
+                purchasable: sum > 0
+            })
+    }
     addIngredientHadler = (type) => {
         const oldIngredientCount = this.state.ingredients[type];
         const updatedIngredientCount = oldIngredientCount + 1;
@@ -37,6 +46,7 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice;
         const updatedPrice = oldPrice + priceAddition;
         this.setState({ ingredients: updatedIngredient, totalPrice: updatedPrice });
+        this.updatePurchaseState(updatedIngredient);
     };
 
     removeIngredientHandler = (type) => {
@@ -53,6 +63,7 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice;
         const updatedPrice = oldPrice - priceDeduction;
         this.setState({ ingredients: updatedIngredient, totalPrice: updatedPrice });
+        this.updatePurchaseState(updatedIngredient);
     };
     render() {
         const disabledInfo = {
@@ -68,7 +79,9 @@ class BurgerBuilder extends Component {
                     <BuildControls 
                         ingredientAdded={this.addIngredientHadler}
                         ingredientRemoved={this.removeIngredientHandler}
-                        disabled={disabledInfo}/>
+                        disabled={disabledInfo}
+                        totalPrice={this.state.totalPrice}
+                        purchasable={this.state.purchasable}/>
                 </Aux>
             </div>
         );
