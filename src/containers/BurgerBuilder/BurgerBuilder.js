@@ -44,6 +44,13 @@ class BurgerBuilder extends Component {
             purchasing: !this.state.purchasing
         })
     }
+
+    cancelPurchaseHandler = () => {
+        this.setState({
+            purchasing: false
+        })
+    }
+
     addIngredientHadler = (type) => {
         const oldIngredientCount = this.state.ingredients[type];
         const updatedIngredientCount = oldIngredientCount + 1;
@@ -84,7 +91,7 @@ class BurgerBuilder extends Component {
         return(
             <div>
                 <Aux>
-                    <Modal show={this.state.purchasing}>
+                    <Modal show={this.state.purchasing} modalClosed={this.cancelPurchaseHandler}>
                         <OrderSummary ingredients={this.state.ingredients}/>
                     </Modal>
                     <Burger ingredients={this.state.ingredients}/>
