@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Button from '../../../UI/Button/Button';
 import classes from './ContactData.css';
 import Spinner from '../../../UI/Spinner/Spinner';
+import Input from '../../../UI/Input/Input';
 
 class ContactData extends Component {
     state = {
@@ -16,7 +17,6 @@ class ContactData extends Component {
     }
 
     orderHandler = (event) => {
-        console.log('Testing', this.props);
         event.preventDefault();
         // alert('You continue');
         this.setState({
@@ -53,10 +53,10 @@ class ContactData extends Component {
     render() {
         let form = (
             <form>
-                <input className={classes.Input} type="text" name="name" placeholder="You Name" />
-                <input className={classes.Input} type="email" name="email" placeholder="Your email" />
-                <input className={classes.Input} type="text" name="street" placeholder="Your Street" />
-                <input className={classes.Input} type="text" name="postal" placeholder="Your Postal" />
+                <Input inputtype="input" type="text" name="name" placeholder="You Name" />
+                <Input inputtype="input" type="email" name="email" placeholder="Your email" />
+                <Input inputtype="input" type="text" name="street" placeholder="Your Street" />
+                <Input inputtype="input" type="text" name="postal" placeholder="Your Postal" />
                 <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
         );
